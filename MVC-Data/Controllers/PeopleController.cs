@@ -11,7 +11,7 @@ namespace MVC_Data.Controllers
         private PeopleService _service = new PeopleService();
         private PeopleViewModel _peopleViewModel = new PeopleViewModel();
 
-        public PeopleController()
+        public PeopleController() //när körs denna?
         {
             _peopleViewModel = _service.All();
         }
@@ -62,9 +62,10 @@ namespace MVC_Data.Controllers
 
             _peopleViewModel = _service.FindBy(searchViewModel);
 
-            //return RedirectToAction(nameof(Index)); //verkar tömma _peopleViewModel
+            //return RedirectToAction(nameof(Index), _peopleViewModel); //resettar _peopleViewModel
+            //return RedirectToAction(nameof(Index)); //resettar _peopleViewModel
             return View("Index", _peopleViewModel); //denna verkar sortera rätt,
-                                                    //men visar felmedd från create-delen
+                                                    //men visar en massa felmedd på create-delen
         }
 
         [HttpGet]
@@ -74,10 +75,8 @@ namespace MVC_Data.Controllers
             Person updPerson = _service.FindBy(id);
             if (updPerson != null)
             {
-                //don't have a view for it yet, just hardcoding some updates for testing
+                //don't have a view for it yet, just hardcoding an update for testing
                 updPerson.LastName = updPerson.LastName + " Updated";
-                updPerson.FirstName = updPerson.FirstName + " Updated";
-                updPerson.City = updPerson.City + " Updated";
 
                 updPerson = _service.Edit(id, updPerson);
             }
