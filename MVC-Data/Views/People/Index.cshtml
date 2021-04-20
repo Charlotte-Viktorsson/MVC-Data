@@ -1,0 +1,80 @@
+﻿@*@model CreatePersonViewModel*@
+@model PeopleViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<h2>List of people</h2>
+@if (Model != null && Model.Persons != null)
+{
+    <table>
+        @if (Model.Persons.Count != 0)
+        {
+            <tr>
+                <!-- här skulle jag vilja använda display grejen från vymodellen-->
+                <th>First name</th>
+                <th>Last name</th>
+                <th>City</th>
+                <th>Phone Nr</th>
+                <th>Actions</th>
+            </tr>
+        }
+        else
+        {
+
+            <p>Currently there are no people available, please create a person.</p>
+
+        }
+        @foreach (Person person in Model.Persons)
+        {
+            <tr>
+                <td>@person.FirstName</td>
+                <td>@person.LastName</td>
+                <td>@person.City</td>
+                <td>@person.PhoneNr</td>
+
+                <td>
+                    <a asp-action="Remove" asp-controller="People" asp-route-id="@person.Id">Remove</a>
+                    <a asp-action="Update" asp-controller="People" asp-route-id="@person.Id">Edit</a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+<h2>Search</h2>
+<form asp-action="Search" asp-controller="People" method="post">
+    <label asp-for="@Model.SearchFilter"></label>
+    <input type="text" asp-for="@Model.SearchFilter" />
+    <button>Search</button>
+</form>
+
+
+<h2>Create person</h2>
+<form asp-action="Create" asp-controller="People" method="post">
+    <label asp-for="createPersonViewModel.FirstName"></label>
+    <input asp-for="createPersonViewModel.FirstName" />
+    <span asp-validation-for="createPersonViewModel.FirstName"></span>
+
+    <label asp-for="createPersonViewModel.LastName"></label>
+    <input asp-for="createPersonViewModel.LastName" />
+    <span asp-validation-for="createPersonViewModel.LastName"></span>
+
+    <label asp-for="createPersonViewModel.City"></label>
+    <input asp-for="createPersonViewModel.City" />
+    <span asp-validation-for="createPersonViewModel.City"></span>
+
+    <label asp-for="createPersonViewModel.PhoneNr"></label>
+    <input type="tel" asp-for="createPersonViewModel.PhoneNr" />
+    <span asp-validation-for="createPersonViewModel.PhoneNr"></span>
+
+    <button type="reset">Reset</button>
+    <button>Create</button>
+</form>
+
+
+
+
+
