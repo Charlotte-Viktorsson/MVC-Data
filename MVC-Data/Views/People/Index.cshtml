@@ -24,7 +24,7 @@
         else
         {
 
-            <p>Currently there are no people available, please create a person.</p>
+            <p>No people created or found by the filter so create new persons or do a new search.</p>
 
         }
         @foreach (Person person in Model.Persons)
@@ -43,9 +43,9 @@
         }
     </table>
 }
-<!--Consider to remove the search section if no persons added yet-->
+
 <h2>Search</h2>
-<form asp-action="Search" asp-controller="People" method="post">
+<form asp-action="Index" asp-controller="People" method="post">
     <label asp-for="@Model.SearchFilter"></label>
     <input type="text" asp-for="@Model.SearchFilter" />
     <button>Search</button>

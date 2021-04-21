@@ -5,12 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MVC_Data.Models.Service
+namespace MVC_Data.Models.DataAccess
 {
     public interface IPeopleRepo
     {
 
-        //public Person Create(string fName, string lName, string city, string phoneNr);
         public Person Create(CreatePersonViewModel createPerson);
 
         public List<Person> Read();

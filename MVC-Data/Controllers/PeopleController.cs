@@ -8,36 +8,36 @@ namespace MVC_Data.Controllers
 {
     public class PeopleController : Controller
     {
-        private PeopleService _service = new PeopleService();
-        private PeopleViewModel _peopleViewModel = new PeopleViewModel();
+        private IPeopleService _service = new PeopleService();
 
-        public PeopleController() //när körs denna?
-        {
-            _peopleViewModel = _service.All();
-        }
-
+        [HttpGet]
         public IActionResult Index()
         {
-            return View(_peopleViewModel);
-
+            return View(_service.All());
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken] //i.e the search filter was clicked
+        public IActionResult Index(PeopleViewModel searchViewModel)
+        {
+            PeopleViewModel filteredModel = _service.FindBy(searchViewModel);
+            searchViewModel.Persons = filteredModel.Persons;
+            ModelState.Clear();
+            return View(searchViewModel);   //visar en massa felmedd på create-delen av vyn
+        }
+
+        [HttpGet]
         public IActionResult Remove(int id)
         {
-
             if (_service.Remove(id))
             {
-                _peopleViewModel = _service.All();
                 return RedirectToAction(nameof(Index));
             }
-            else
+            else //couldn't remove but go to same place anyway for now
             {
-                //hm, show some error ? can trigger this by manually
-                //changing url to ../People/Remove/55 or similar
-                return View("Index", _peopleViewModel);
+                return RedirectToAction(nameof(Index));
             }
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -46,32 +46,16 @@ namespace MVC_Data.Controllers
             if (ModelState.IsValid)
             {
                 _service.Add(createPerson.createPersonViewModel);
-                _peopleViewModel = _service.All();
+
                 return RedirectToAction(nameof(Index));
             }
-
-            _peopleViewModel = _service.All();
-            return View("Index", _peopleViewModel);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Search(PeopleViewModel searchViewModel)
-        {
-            string filter = searchViewModel.SearchFilter;
-
-            _peopleViewModel = _service.FindBy(searchViewModel);
-
-            //return RedirectToAction(nameof(Index), _peopleViewModel); //resettar _peopleViewModel
-            //return RedirectToAction(nameof(Index)); //resettar _peopleViewModel
-            return View("Index", _peopleViewModel); //denna verkar sortera rätt,
-                                                    //men visar en massa felmedd på create-delen
+            createPerson = _service.All();
+            return View("Index", createPerson);
         }
 
         [HttpGet]
         public IActionResult Update(int id)
         {
-
             Person updPerson = _service.FindBy(id);
             if (updPerson != null)
             {

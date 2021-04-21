@@ -1,5 +1,6 @@
 ﻿using MVC_Data.Models.Data;
 using MVC_Data.Models.ViewModel;
+using MVC_Data.Models.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace MVC_Data.Models.Service
 {
     public class PeopleService : IPeopleService
     {
-        private InMemoryPeopleRepo _memory;
+        private IPeopleRepo _memory;
 
         public PeopleService()
         {
@@ -46,7 +47,7 @@ namespace MVC_Data.Models.Service
             }
             else
             {
-                //filter (or should I use something in InMemoryPeopleRepo...)
+                //filter
                 foreach (Person person in search.Persons)
                 {
                     if (person.City.Contains(filter) ||
