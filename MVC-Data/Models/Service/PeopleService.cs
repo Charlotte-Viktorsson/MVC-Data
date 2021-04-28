@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 
 namespace MVC_Data.Models.Service
 {
@@ -39,25 +40,37 @@ namespace MVC_Data.Models.Service
         public PeopleViewModel FindBy(PeopleViewModel search)
         {
             string filter = search.SearchFilter;
-            search = this.All();
+            //search = this.All();
+            PeopleViewModel filteredModel = new PeopleViewModel();
+            filteredModel = this.All();
             List<Person> filteredList = new List<Person>();
             if (String.IsNullOrWhiteSpace(filter))
             {
-                return search; //will show whole list then
+                return filteredModel; //will show whole list then
             }
             else
             {
                 //filter
-                foreach (Person person in search.Persons)
+                foreach (Person person in filteredModel.Persons)
                 {
-                    if (person.City.Contains(filter) ||
-                        person.FirstName.Contains(filter) ||
-                        person.LastName.Contains(filter)
-                    )
+                    if (search.CaseSensitive)
                     {
-                        filteredList.Add(person);
+                        if (person.City.Contains(filter, StringComparison.CurrentCulture) ||
+                        person.FirstName.Contains(filter, StringComparison.CurrentCulture) ||
+                        person.LastName.Contains(filter, StringComparison.CurrentCulture))
+                        {
+                            filteredList.Add(person);
+                        }
                     }
-
+                    else // case insensitive
+                    {
+                        if (person.City.Contains(filter, StringComparison.CurrentCultureIgnoreCase) ||
+                            person.FirstName.Contains(filter, StringComparison.CurrentCultureIgnoreCase) ||
+                            person.LastName.Contains(filter, StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            filteredList.Add(person);
+                        }
+                    }
                 }
                 search.Persons = filteredList;
 
@@ -84,5 +97,43 @@ namespace MVC_Data.Models.Service
             }
             return removeResult;
         }
+
+        //public PeopleViewModel Sort(string sortOrder, string orderBy)
+        //{
+        //    PeopleViewModel sortModel = new PeopleViewModel();
+        //    sortModel = this.All();
+        //    //List<Order> SortedList = objListOrder.OrderBy(o => o.OrderDate).ToList();
+
+
+        //    List<Person> sortedPersons;
+        //    if (sortOrder == "A")
+        //    {
+        //        sortedPersons = sortModel.Persons.OrderBy(p => orderBy).ToList();
+        //    }
+        //    else
+        //    {
+        //        sortedPersons = sortModel.Persons.OrderByDescending(p => "p." + orderBy).ToList();
+        //    }
+
+        //    sortModel.Persons = sortedPersons;
+        //    return sortModel;
+
+        //}
+
+        /*
+        public static IQueryable<TEntity> OrderBy<TEntity>(this IQueryable<TEntity> source, string orderByProperty,
+                                 bool desc) 
+       {
+            string command = desc ? "OrderByDescending" : "OrderBy";
+            var type = typeof(TEntity);
+            var property = type.GetProperty(orderByProperty);
+            var parameter = Expression.Parameter(type, "p");
+            var propertyAccess = Expression.MakeMemberAccess(parameter, property);
+            var orderByExpression = Expression.Lambda(propertyAccess, parameter);
+            var resultExpression = Expression.Call(typeof(Queryable), command, new Type[] { type, property.PropertyType },
+                                          source.Expression, Expression.Quote(orderByExpression));
+            return source.Provider.CreateQuery<TEntity>(resultExpression);
+       }
+                */
     }
 }

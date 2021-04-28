@@ -22,8 +22,9 @@ namespace MVC_Data.Controllers
         {
             PeopleViewModel filteredModel = _service.FindBy(searchViewModel);
             searchViewModel.Persons = filteredModel.Persons;
+
             ModelState.Clear();
-            return View(searchViewModel);   //visar en massa felmedd på create-delen av vyn
+            return View(searchViewModel);
         }
 
         [HttpGet]

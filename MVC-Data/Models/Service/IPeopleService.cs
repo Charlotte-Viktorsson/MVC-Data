@@ -1,4 +1,5 @@
-﻿using MVC_Data.Models.Data;
+﻿using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using MVC_Data.Models.Data;
 using MVC_Data.Models.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -20,5 +21,7 @@ namespace MVC_Data.Models.Service
         public Person Edit(int id, Person person);
 
         public bool Remove(int id);
+
+        //public PeopleViewModel Sort(string sortOrder, string orderBy);
     }
 }
