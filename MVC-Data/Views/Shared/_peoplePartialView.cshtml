@@ -1,6 +1,15 @@
 ﻿@{
     var showActions = (bool)ViewData["ShowPersonDeleteButton"];
-    ViewData["ShowHeader"] = false; //for _personPartialView
+    ViewData["ShowHeader"] = false;
+
+    if (ViewData["ShowPersonEditButton"] == null)
+    {
+        ViewData["ShowPersonEditButton"] = false;
+    }
+    if (ViewData["ShowPersonDetailsButton"] == null)
+    {
+        ViewData["ShowPersonDetailsButton"] = false;
+    }
 }
 @model List<Person>
 
@@ -15,7 +24,7 @@
                 <div class="col-3">
                     <h5>Last name</h5>
                 </div>
-                <div class="col-3">
+                <div class="col-2">
                     <h5>City</h5>
                 </div>
                 <div class="col-2">
@@ -23,7 +32,7 @@
                 </div>
                 @if (showActions)
                 {
-                    <div class="col-2">
+                    <div class="col-3">
                         <h5>Action</h5>
                     </div>
                 }

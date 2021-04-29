@@ -37,6 +37,24 @@ namespace MVC_Data.Models.Service
             return _memory.Update(person);
         }
 
+        public Person Edit(int id, EditPersonViewModel person)
+        {
+            Person personToUpdate = FindBy(id);
+
+            if (personToUpdate == null)
+            {
+                return null;
+            }
+
+            personToUpdate.Id = id;
+            personToUpdate.FirstName = person.CreatePerson.FirstName;
+            personToUpdate.LastName = person.CreatePerson.LastName;
+            personToUpdate.City = person.CreatePerson.City;
+            personToUpdate.PhoneNr = person.CreatePerson.PhoneNr;
+
+            return _memory.Update(personToUpdate);
+        }
+
         public PeopleViewModel FindBy(PeopleViewModel search)
         {
             string filter = search.SearchFilter;

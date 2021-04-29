@@ -20,16 +20,20 @@ namespace MVC_Data.Controllers
         [HttpGet]
         public IActionResult DisplayPeople()
         {
-            ViewData["ShowPersonDeleteButton"] = false;
+            ViewData["ShowPersonDeleteButton"] = true;
+            ViewData["ShowPersonEditButton"] = false;
+            ViewData["ShowPersonDetailsButton"] = true;
             return PartialView("_peoplePartialView", _service.All().Persons);
         }
 
-        [HttpPost]
+        [HttpPost]  //details for input id
         public IActionResult Details(int id)
         {
             Person foundPerson = _service.FindBy(id);
 
-            ViewData["ShowPersonDeleteButton"] = false;
+            ViewData["ShowPersonDeleteButton"] = true;
+            ViewData["ShowPersonEditButton"] = false;
+            ViewData["ShowPersonDetailsButton"] = true;
             ViewData["ShowHeader"] = true;
             return PartialView("_personPartialView", foundPerson);
         }
@@ -48,5 +52,25 @@ namespace MVC_Data.Controllers
             return NotFound("Person with id " + id + " was not found.");
         }
 
+        [HttpPost]
+        public IActionResult PartialDetails(int id)
+        {
+            Person foundPerson = _service.FindBy(id);
+
+
+            return PartialView("_personDetailsView", foundPerson);
+        }
+
+        [HttpPost]
+        public IActionResult PartialPersonRow(int id)
+        {
+            Person foundPerson = _service.FindBy(id);
+
+            ViewData["ShowPersonDeleteButton"] = true;
+            ViewData["ShowPersonEditButton"] = false;
+            ViewData["ShowPersonDetailsButton"] = true;
+            ViewData["ShowHeader"] = false;
+            return PartialView("_personPartialView", foundPerson);
+        }
     }
 }

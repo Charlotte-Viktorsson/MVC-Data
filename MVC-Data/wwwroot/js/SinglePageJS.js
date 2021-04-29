@@ -75,5 +75,52 @@ function ajaxPostRemovePerson(event) {
     });
     
 }
+
+function AjaxPersonDetails(event, id) {
+    event.preventDefault();
+    console.log("OnDetials Event: ", event);
+
+    console.log("id:", id);
+
+    var anchorUrl = event.target.href;
+    console.log("anchorUrl", anchorUrl);
+
+    $.post(anchorUrl,
+        {
+            id: id
+        },
+        function (data, status) {
+            console.log("Data: " + data + "\nStatus: " + status);
+
+            $("#p" + id).replaceWith(data);
+        }
+    );
+}
+
+
+function AjaxClosePersonDetails(event, id) {
+    event.preventDefault();
+    console.log("AjaxClosePersonDetails Event: ", event);
+
+    console.log("id:", id);
+
+    var anchorUrl = event.target.href;
+    console.log("anchorUrl", anchorUrl);
+
+    $.post(anchorUrl,
+        {
+            id: id
+        },
+        function (data, status) {
+            console.log("Data: " + data + "\nStatus: " + status);
+
+            $("#p" + id).replaceWith(data);
+        }
+    );
+
+}
+
+
+
 //show all people at start
 ajaxGetAllPersons();

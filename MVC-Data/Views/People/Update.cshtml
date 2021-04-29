@@ -1,0 +1,34 @@
+﻿@model EditPersonViewModel
+
+<h1>Edit Person</h1>
+
+
+<form asp-action="Update" asp-controller="People" method="post">
+    <div class="row">
+        <div class="col-4">
+            <label asp-for="CreatePerson.FirstName"></label>
+            <input asp-for="CreatePerson.FirstName" />
+            <span asp-validation-for="CreatePerson.FirstName"></span>
+        </div>
+        <div class="col-4">
+            <label asp-for="CreatePerson.LastName"></label>
+            <input asp-for="CreatePerson.LastName" />
+            <span asp-validation-for="CreatePerson.LastName"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <label asp-for="CreatePerson.City"></label>
+            <input asp-for="CreatePerson.City" />
+            <span asp-validation-for="CreatePerson.City"></span>
+        </div>
+        <div class="col-4">
+            <label asp-for="CreatePerson.PhoneNr"></label>
+            <input type="tel" asp-for="CreatePerson.PhoneNr" />
+            <span asp-validation-for="CreatePerson.PhoneNr"></span>
+        </div>
+    </div>
+    <input type="reset" class="btn btn-secondary" value="Reset" />
+    <button class="btn btn-primary">Update</button>
+</form>

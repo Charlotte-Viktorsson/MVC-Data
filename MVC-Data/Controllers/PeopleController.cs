@@ -13,6 +13,7 @@ namespace MVC_Data.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewData["ShowPersonEditButton"] = true;
             return View(_service.All());
         }
 
@@ -60,13 +61,34 @@ namespace MVC_Data.Controllers
             Person updPerson = _service.FindBy(id);
             if (updPerson != null)
             {
-                //don't have a view for it yet, just hardcoding an update for testing
-                updPerson.LastName = updPerson.LastName + " Updated";
-
-                updPerson = _service.Edit(id, updPerson);
+                EditPersonViewModel editPersonVM = new EditPersonViewModel(id, updPerson);
+                return View(editPersonVM);
             }
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
+        public IActionResult Update(EditPersonViewModel person)
+        {
+            Person updPerson = _service.FindBy(person.Id);
+
+            if (updPerson == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            if (ModelState.IsValid)
+            {
+                Person updatedPerson = new Person();
+                _service.Edit(person.Id, person);
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            //invalid modelstate
+            EditPersonViewModel editPersonVM = new EditPersonViewModel(person.Id, updPerson);
+            return View(editPersonVM);
+
+        }
     }
 }
