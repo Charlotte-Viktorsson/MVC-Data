@@ -13,9 +13,9 @@ namespace MVC_Data.Models.Service
     {
         private IPeopleRepo _memory;
 
-        public PeopleService()
+        public PeopleService(IPeopleRepo peopleRepo)
         {
-            _memory = new InMemoryPeopleRepo();
+            _memory = peopleRepo;
         }
 
         public Person Add(CreatePersonViewModel createPerson)

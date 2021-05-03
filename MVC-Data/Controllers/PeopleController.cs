@@ -8,7 +8,12 @@ namespace MVC_Data.Controllers
 {
     public class PeopleController : Controller
     {
-        private IPeopleService _service = new PeopleService();
+        IPeopleService _service;
+
+        public PeopleController(IPeopleService service)
+        {
+            _service = service;
+        }
 
         [HttpGet]
         public IActionResult Index()

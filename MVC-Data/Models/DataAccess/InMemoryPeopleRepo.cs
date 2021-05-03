@@ -9,8 +9,8 @@ namespace MVC_Data.Models.DataAccess
 {
     public class InMemoryPeopleRepo : IPeopleRepo
     {
-        private static List<Person> persons = new List<Person>();
-        private static int idCounter = 0;
+        private List<Person> persons = new List<Person>();
+        private int idCounter = 0;
 
         public Person Create(CreatePersonViewModel createPerson)
         {

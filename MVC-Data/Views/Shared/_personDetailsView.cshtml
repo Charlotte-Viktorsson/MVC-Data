@@ -9,18 +9,6 @@
         <div class="col-2"><p>@Model.PhoneNr</p>  </div>
 
         <div class="col-3">
-            @*@if (showEditAction)
-            {
-                <a asp-action="Update" asp-controller="People" asp-route-id="@Model.Id" asp-route-person="@Model" class="btn btn-info">Edit</a>
-            }
-            @if (showDetailsAction)
-            {
-                <a asp-action="PartialDetails" asp-controller="SPA" asp-route-id="@Model.Id" class="btn btn-info">Details</a>
-            }
-            @if (showDeleteAction)
-            {
-                <a asp-action="Remove" asp-controller="People" asp-route-id="@Model.Id" class="btn btn-danger">Remove</a>
-            }*@
             <a asp-action="PartialPersonRow" onclick="AjaxClosePersonDetails(event, @Model.Id)" class="btn btn-primary">Close Details</a>
         </div>
 

@@ -10,7 +10,12 @@ namespace MVC_Data.Controllers
 {
     public class SPAController : Controller
     {
-        private IPeopleService _service = new PeopleService();
+        private IPeopleService _service;
+
+        public SPAController(IPeopleService service)
+        {
+            _service = service;
+        }
 
         public IActionResult Index()
         {
