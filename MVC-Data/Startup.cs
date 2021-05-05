@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MVC_Data.Models.Data;
 using MVC_Data.Models.DataAccess;
 using MVC_Data.Models.Service;
 using System;
@@ -15,20 +17,24 @@ namespace MVC_Data
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IPeopleService, PeopleService>();
-            services.AddSingleton<IPeopleRepo, InMemoryPeopleRepo>();
+            services.AddDbContext<PeopleDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            //services.AddControllersWithViews();
+            services.AddScoped<IPeopleService, PeopleService>();
+            //services.AddSingleton<IPeopleRepo, InMemoryPeopleRepo>(); //singleton was good replacing static list
+            services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();
+
+            //services.AddControllersWithViews(); //if models are not needed
             services.AddMvc().AddRazorRuntimeCompilation();
         }
 

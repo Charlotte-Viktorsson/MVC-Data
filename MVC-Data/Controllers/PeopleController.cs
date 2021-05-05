@@ -30,6 +30,7 @@ namespace MVC_Data.Controllers
             searchViewModel.Persons = filteredModel.Persons;
 
             ModelState.Clear();
+            ViewData["ShowPersonEditButton"] = true;
             return View(searchViewModel);
         }
 
