@@ -4,72 +4,87 @@
     ViewData["ShowPersonDeleteButton"] = true;
 }
 
-<h1>Index</h1>
+<h1>People Index</h1>
 
-<h2>Create person</h2>
-<form asp-action="Create" asp-controller="People" method="post">
-    <div class="row">
-        <div class="col-4">
-            <label asp-for="createPersonViewModel.FirstName"></label>
-            <input asp-for="createPersonViewModel.FirstName" />
-            <span asp-validation-for="createPersonViewModel.FirstName"></span>
-        </div>
-        <div class="col-4">
-            <label asp-for="createPersonViewModel.LastName"></label>
-            <input asp-for="createPersonViewModel.LastName" />
-            <span asp-validation-for="createPersonViewModel.LastName"></span>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-4">
-            <label asp-for="createPersonViewModel.City"></label>
-            <input asp-for="createPersonViewModel.City" />
-            <span asp-validation-for="createPersonViewModel.City"></span>
-        </div>
-        <div class="col-4">
-            <label asp-for="createPersonViewModel.PhoneNr"></label>
-            <input type="tel" asp-for="createPersonViewModel.PhoneNr" />
-            <span asp-validation-for="createPersonViewModel.PhoneNr"></span>
-        </div>
-    </div>
-    <button type="reset" class="btn btn-secondary">Reset</button>
-    <button class="btn btn-primary">Create</button>
-</form>
-
-<h2>Search</h2>
-<form asp-action="Index" asp-controller="People" method="post">
-    <div class="row">
-        <div class="col-6 form-inline">
-            <label asp-for="@Model.SearchFilter" class="mr-sm-2"></label>
-            <input type="text" asp-for="@Model.SearchFilter" />
-        </div>
-        <div class="form-check col-3 mt-sm-3">
-            <label class="form-check-label">
-                <input class="form-check-input" asp-for="CaseSensitive" /> @Html.DisplayNameFor(model => model.CaseSensitive)
-            </label>
-        </div>
-        <div class="form-group col-2">
-            <button class="btn btn-primary">Search</button>
-        </div>
-    </div>
-</form>
-
-<h2>List of people</h2>
-@if (Model != null && Model.Persons != null)
+@if (Model.createPersonViewModel.Cities != null && Model.createPersonViewModel.Cities.Count > 0)
 {
-    @if (Model.Persons.Count != 0)
-    {
-        <partial name="../Shared/_peoplePartialView" model="Model.Persons" view-data="ViewData" />
+    <h2>Create person</h2>
+    <form asp-action="Create" asp-controller="People" method="post">
+        <div class="row">
+            <div class="col-4">
+                <label asp-for="createPersonViewModel.FirstName"></label>
+                <input asp-for="createPersonViewModel.FirstName" />
+                <span asp-validation-for="createPersonViewModel.FirstName"></span>
+            </div>
+            <div class="col-4">
+                <label asp-for="createPersonViewModel.LastName"></label>
+                <input asp-for="createPersonViewModel.LastName" />
+                <span asp-validation-for="createPersonViewModel.LastName"></span>
+            </div>
+        </div>
 
-    }
-    else
+        <div class="row">
+            <label asp-for="createPersonViewModel.CityId"></label>
+            <select class="form-select" asp-for="createPersonViewModel.CityId">
+                @foreach (var item in Model.createPersonViewModel.Cities)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+            <span asp-validation-for="createPersonViewModel.CityId"></span>
+            @*<div class="col-4">
+                    <label asp-for="createPersonViewModel.CityId"></label>
+                    <input asp-for="createPersonViewModel.CityId" />
+                    <span asp-validation-for="createPersonViewModel.CityId"></span>
+                </div>*@
+            <div class="col-4">
+                <label asp-for="createPersonViewModel.PhoneNr"></label>
+                <input type="tel" asp-for="createPersonViewModel.PhoneNr" />
+                <span asp-validation-for="createPersonViewModel.PhoneNr"></span>
+            </div>
+        </div>
+        <button type="reset" class="btn btn-secondary">Reset</button>
+        <button class="btn btn-primary">Create</button>
+    </form>
+
+
+    <h2>Search</h2>
+    <form asp-action="Index" asp-controller="People" method="post">
+        <div class="row">
+            <div class="col-6 form-inline">
+                <label asp-for="@Model.SearchFilter" class="mr-sm-2"></label>
+                <input type="text" asp-for="@Model.SearchFilter" />
+            </div>
+            <div class="form-check col-3 mt-sm-3">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="CaseSensitive" /> @Html.DisplayNameFor(model => model.CaseSensitive)
+                </label>
+            </div>
+            <div class="form-group col-2">
+                <button class="btn btn-primary">Search</button>
+            </div>
+        </div>
+    </form>
+
+    <h2>List of people</h2>
+    @if (Model != null && Model.Persons != null)
     {
-        <div><p>No people created or found by the filter. Create new persons or do a new search.</p></div>
+        @if (Model.Persons.Count != 0)
+        {
+            <partial name="../Shared/_peoplePartialView" model="Model.Persons" view-data="ViewData" />
+
+        }
+        else
+        {
+            <div><p>No people created or found by the filter. Create new persons or do a new search.</p></div>
+        }
     }
+
 }
-
-
+else
+{
+    <p>First create Countries, then Cities and then People.</p>
+}
 
 
 

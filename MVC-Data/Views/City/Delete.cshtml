@@ -1,0 +1,32 @@
+﻿@model City
+@{
+    ViewData["Title"] = "Delete city";
+}
+<h1>Delete City</h1>
+@if (Model != null)
+{
+    @if (Model.Citizens == null || Model.Citizens.Count <= 0)
+    {
+        <form asp-action="Delete" method="post" asp-route-id="@Model.Id" asp-route-name="">
+            <input value="@Model.Name" />
+            <a asp-action="Index" class="btn btn-info">Cancel</a>
+            <button class="btn btn-danger">Delete city</button>
+        </form>
+    }
+    else
+    {
+        <p>The following Perons lives in the City, so it can't be removed.</p>
+        @foreach (Person person in Model.Citizens)
+        {
+            <li>@person.FirstName . @person.LastName</li>
+        }
+        <a asp-action="Index" class="btn btn-info">Back to Cities</a>
+    }
+}
+else
+{
+    <p>Can't find City</p>
+    <a asp-action="Index" class="btn btn-info">Back to Cities</a>
+
+}
+

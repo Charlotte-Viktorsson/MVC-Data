@@ -1,0 +1,32 @@
+﻿@model EditCountryViewModel
+@{
+    ViewData["Title"] = "Country details";
+}
+
+<h1>Country details</h1>
+
+<div class="row">
+    <h2>@Model.CreateVM.Name</h2>
+</div>
+<div class="row">
+    <p>Country Id @Model.Id</p>
+</div>
+@if (Model.CreateVM != null && Model.CreateVM.CityList != null && Model.CreateVM.CityList.Count != 0)
+{
+    <div class="row">
+        <h3>Cities</h3>
+    </div>
+    @foreach (var city in Model.CreateVM.CityList)
+    {
+        <div class="row">
+            <p>@city.Name</p>
+        </div>
+    }
+}
+else
+{
+    <div class="row">No registered cities in the country.</div>
+}
+<a asp-action="Index" class="btn btn-info">Back to Countries</a>
+
+

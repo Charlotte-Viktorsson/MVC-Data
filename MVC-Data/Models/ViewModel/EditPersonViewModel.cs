@@ -19,9 +19,10 @@ namespace MVC_Data.Models.ViewModel
             {
                 FirstName = person.FirstName,
                 LastName = person.LastName,
-                City = person.City,
+                CityId = person.InCityId,
                 PhoneNr = person.PhoneNr
             };
+
         }
 
         public EditPersonViewModel(int id, CreatePersonViewModel createPerson)

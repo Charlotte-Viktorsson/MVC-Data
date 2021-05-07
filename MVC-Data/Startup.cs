@@ -31,7 +31,12 @@ namespace MVC_Data
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IPeopleService, PeopleService>();
+            services.AddScoped<ICityService, CityService>();
+            services.AddScoped<ICountryService, CountryService>();
+
             //services.AddSingleton<IPeopleRepo, InMemoryPeopleRepo>(); //singleton was good replacing static list
+            services.AddScoped<ICityRepo, DatabaseCityRepo>();
+            services.AddScoped<ICountryRepo, DatabaseCountryRepo>();
             services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();
 
             //services.AddControllersWithViews(); //if models are not needed

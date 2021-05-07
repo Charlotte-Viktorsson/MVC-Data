@@ -18,10 +18,16 @@
     </div>
 
     <div class="row">
+
         <div class="col-4">
-            <label asp-for="CreatePerson.City"></label>
-            <input asp-for="CreatePerson.City" />
-            <span asp-validation-for="CreatePerson.City"></span>
+            <label asp-for="CreatePerson.CityId"></label>
+            <select asp-for="CreatePerson.CityId">
+                @foreach (var city in Model.CreatePerson.Cities)
+                {
+                    <option value="@city.Id">@city.Name</option>
+                }
+            </select>
+            <span asp-validation-for="CreatePerson.CityId"></span>
         </div>
         <div class="col-4">
             <label asp-for="CreatePerson.PhoneNr"></label>

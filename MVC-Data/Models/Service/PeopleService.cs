@@ -20,6 +20,10 @@ namespace MVC_Data.Models.Service
 
         public Person Add(CreatePersonViewModel createPerson)
         {
+            if (createPerson.CityId == -1) //no city
+            {
+                createPerson.CityId = 0;
+            }
             Person createdPerson = _memory.Create(createPerson);
             return createdPerson;
         }
@@ -31,11 +35,11 @@ namespace MVC_Data.Models.Service
             return model;
         }
 
-        public Person Edit(int id, Person person)
+        /*public Person Edit(int id, Person person)
         {
             //why do we need id, it should be included in Person
             return _memory.Update(person);
-        }
+        }*/
 
         public Person Edit(int id, EditPersonViewModel person)
         {
@@ -49,7 +53,7 @@ namespace MVC_Data.Models.Service
             personToUpdate.Id = id;
             personToUpdate.FirstName = person.CreatePerson.FirstName;
             personToUpdate.LastName = person.CreatePerson.LastName;
-            personToUpdate.City = person.CreatePerson.City;
+            personToUpdate.InCityId = person.CreatePerson.CityId;
             personToUpdate.PhoneNr = person.CreatePerson.PhoneNr;
 
             return _memory.Update(personToUpdate);
@@ -73,7 +77,7 @@ namespace MVC_Data.Models.Service
                 {
                     if (search.CaseSensitive)
                     {
-                        if (person.City.Contains(filter, StringComparison.CurrentCulture) ||
+                        if (person.InCity.Name.Contains(filter, StringComparison.CurrentCulture) ||
                         person.FirstName.Contains(filter, StringComparison.CurrentCulture) ||
                         person.LastName.Contains(filter, StringComparison.CurrentCulture))
                         {
@@ -82,7 +86,7 @@ namespace MVC_Data.Models.Service
                     }
                     else // case insensitive
                     {
-                        if (person.City.Contains(filter, StringComparison.CurrentCultureIgnoreCase) ||
+                        if (person.InCity.Name.Contains(filter, StringComparison.CurrentCultureIgnoreCase) ||
                             person.FirstName.Contains(filter, StringComparison.CurrentCultureIgnoreCase) ||
                             person.LastName.Contains(filter, StringComparison.CurrentCultureIgnoreCase))
                         {
@@ -96,6 +100,24 @@ namespace MVC_Data.Models.Service
             }
         }
 
+        //public List<Person> FindByCity(string cityName)
+        public List<Person> FindByCity(int cityId)
+        {
+
+            PeopleViewModel filteredModel = new PeopleViewModel();
+            filteredModel = this.All();
+            List<Person> filteredList = new List<Person>();
+            foreach (Person person in filteredModel.Persons)
+            {
+
+                if (person.InCityId == cityId)
+                {
+                    filteredList.Add(person);
+                }
+
+            }
+            return filteredList;
+        }
         public Person FindBy(int id)
         {
             return _memory.Read(id);

@@ -1,4 +1,5 @@
-﻿using MVC_Data.Models.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MVC_Data.Models.Data;
 using MVC_Data.Models.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,7 @@ namespace MVC_Data.Models.DataAccess
             {
                 FirstName = createPerson.FirstName,
                 LastName = createPerson.LastName,
-                City = createPerson.City,
+                InCityId = createPerson.CityId,
                 PhoneNr = createPerson.PhoneNr
             };
 
@@ -42,12 +43,12 @@ namespace MVC_Data.Models.DataAccess
 
         public List<Person> Read()
         {
-            return _peopleDbContext.People.ToList();
+            return _peopleDbContext.People.Include("InCity").ToList();
         }
 
         public Person Read(int id)
         {
-            return _peopleDbContext.People.SingleOrDefault(p => p.Id == id);
+            return _peopleDbContext.People.Include("InCity").SingleOrDefault(p => p.Id == id);
         }
 
         public Person Update(Person person)

@@ -16,9 +16,11 @@ namespace MVC_Data.Models.Service
 
         public PeopleViewModel FindBy(PeopleViewModel search);
 
+        public List<Person> FindByCity(int cityId);
+
         public Person FindBy(int id);
 
-        public Person Edit(int id, Person person);
+        //public Person Edit(int id, Person person);
 
         public Person Edit(int id, EditPersonViewModel person);
 

@@ -9,17 +9,21 @@ namespace MVC_Data.Controllers
     public class PeopleController : Controller
     {
         IPeopleService _service;
+        private readonly ICityService _cityService;
 
-        public PeopleController(IPeopleService service)
+        public PeopleController(IPeopleService service, ICityService cityService)
         {
             _service = service;
+            _cityService = cityService;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
             ViewData["ShowPersonEditButton"] = true;
-            return View(_service.All());
+            PeopleViewModel peopleViewModel = _service.All();
+            peopleViewModel.createPersonViewModel.Cities = _cityService.All().Cities;
+            return View(peopleViewModel);
         }
 
         [HttpPost]
@@ -58,6 +62,7 @@ namespace MVC_Data.Controllers
                 return RedirectToAction(nameof(Index));
             }
             createPerson = _service.All();
+            createPerson.createPersonViewModel.Cities = _cityService.All().Cities;
             return View("Index", createPerson);
         }
 
@@ -68,6 +73,7 @@ namespace MVC_Data.Controllers
             if (updPerson != null)
             {
                 EditPersonViewModel editPersonVM = new EditPersonViewModel(id, updPerson);
+                editPersonVM.CreatePerson.Cities = _cityService.All().Cities;
                 return View(editPersonVM);
             }
             return RedirectToAction(nameof(Index));
@@ -85,15 +91,14 @@ namespace MVC_Data.Controllers
 
             if (ModelState.IsValid)
             {
-                Person updatedPerson = new Person();
                 _service.Edit(person.Id, person);
 
                 return RedirectToAction(nameof(Index));
             }
 
             //invalid modelstate
-            EditPersonViewModel editPersonVM = new EditPersonViewModel(person.Id, updPerson);
-            return View(editPersonVM);
+            //EditPersonViewModel editPersonVM = new EditPersonViewModel(person.Id, updPerson);
+            return View(person);
 
         }
     }

@@ -15,6 +15,8 @@ namespace MVC_Data.Models.Data
 
         public DbSet<Person> People { get; set; }
 
-        //public DbSet<MVC_Data.Models.Data.City> City { get; set; }
+        public DbSet<City> Cities { get; set; }
+
+        public DbSet<Country> Countries { get; set; }
     }
 }

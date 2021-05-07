@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVC_Data.Models.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,13 +19,16 @@ namespace MVC_Data.Models.ViewModel
         [Display(Name = "Lastname")]
         public string LastName { get; set; }
 
-        [Required(ErrorMessage = "City is required")]
-        [StringLength(100, MinimumLength = 1)]
-        public string City { get; set; }
-
         [Phone(ErrorMessage = "Only +- and 0-9 allowed")] //0-9, +-
         [Display(Name = "Phone number (optional)")]
         public string PhoneNr { get; set; }
+
+        //public string City { get; set; }
+
+        [Display(Name = "City (optional)")]
+        public int CityId { get; set; }
+
+        public List<City> Cities { get; set; }
 
     }
 }

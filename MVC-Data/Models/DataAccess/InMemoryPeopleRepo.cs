@@ -19,7 +19,7 @@ namespace MVC_Data.Models.DataAccess
                 Id = ++idCounter,
                 FirstName = createPerson.FirstName,
                 LastName = createPerson.LastName,
-                City = createPerson.City,
+                InCityId = createPerson.CityId,
                 PhoneNr = createPerson.PhoneNr
             };
             persons.Add(newPerson);
@@ -68,7 +68,7 @@ namespace MVC_Data.Models.DataAccess
             {
                 personToUpdate.FirstName = person.FirstName;
                 personToUpdate.LastName = person.LastName;
-                personToUpdate.City = person.City;
+                personToUpdate.InCityId = person.InCityId;
                 personToUpdate.PhoneNr = person.PhoneNr;
             }
             return personToUpdate;
