@@ -43,12 +43,17 @@ namespace MVC_Data.Models.DataAccess
 
         public List<Person> Read()
         {
-            return _peopleDbContext.People.Include("InCity").ToList();
+            return _peopleDbContext.People
+                .Include(p => p.InCity).ToList();
         }
 
         public Person Read(int id)
         {
-            return _peopleDbContext.People.Include("InCity").SingleOrDefault(p => p.Id == id);
+            return _peopleDbContext.People
+                .Include(p => p.InCity)
+                .Include(p => p.PersonLanguages)
+                    .ThenInclude(pl => pl.Language)
+                .SingleOrDefault(p => p.Id == id);
         }
 
         public Person Update(Person person)

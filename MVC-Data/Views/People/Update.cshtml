@@ -2,7 +2,6 @@
 
 <h1>Edit Person</h1>
 
-
 <form asp-action="Update" asp-controller="People" method="post">
     <div class="row">
         <div class="col-4">
@@ -22,6 +21,7 @@
         <div class="col-4">
             <label asp-for="CreatePerson.CityId"></label>
             <select asp-for="CreatePerson.CityId">
+                <option value="">No city</option>
                 @foreach (var city in Model.CreatePerson.Cities)
                 {
                     <option value="@city.Id">@city.Name</option>
@@ -38,3 +38,43 @@
     <input type="reset" class="btn btn-secondary" value="Reset" />
     <button class="btn btn-primary">Update</button>
 </form>
+
+@*@if (Model.Person.PersonLanguages != null && Model.Person.PersonLanguages.Count != 0
+     && Model.NotSpokenLanguages.Count != 0)
+    {
+
+    }*@
+<h2>Update languages</h2>
+<div class="row">
+    <div class="col-4">
+        <h4>Can speak</h4>
+    </div>
+    <div class="col-4">
+        <h4>Don't speak</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-4">
+        <ul>
+            @if (Model.Person.PersonLanguages != null)
+            {
+                @foreach (var item in Model.Person.PersonLanguages)
+                {
+                    <li>
+                        @item.Language.Name  @Html.ActionLink("Remove", "RemoveLanguageFromPerson", "People", new { pId = Model.Id, langId = item.LanguageId })
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+    <div class="col-4">
+        <ul>
+            @foreach (var item in Model.NotSpokenLanguages)
+            {
+                <li>
+                    @item.Name @Html.ActionLink("Add", "AddLanguageToPerson", "People", new { pId = Model.Id, langId = item.Id })
+                </li>
+            }
+        </ul>
+    </div>
+</div>

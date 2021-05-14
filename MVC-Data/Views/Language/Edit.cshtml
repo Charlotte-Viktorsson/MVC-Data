@@ -1,0 +1,17 @@
+﻿@model EditLanguageViewModel
+@{
+    ViewData["Title"] = "Edit Language";
+}
+
+<h1>Edit Language</h1>
+
+<form asp-action="Edit" method="post">
+    <input asp-for="@Model.Id" hidden />
+
+    <label asp-for="@Model.CreateVM.Name"></label>
+    <input asp-for="@Model.CreateVM.Name" />
+    <span asp-validation-for="@Model.CreateVM.Name"></span>
+
+    <button class="btn btn-info">Update</button>
+
+</form>

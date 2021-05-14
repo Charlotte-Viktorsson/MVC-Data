@@ -31,12 +31,12 @@ namespace MVC_Data.Models.DataAccess
 
         public List<City> Read()
         {
-            return _dbContext.Cities.Include("Nation").ToList();
+            return _dbContext.Cities.Include(c => c.Nation).ToList();
         }
 
         public City Read(int id)
         {
-            return _dbContext.Cities.Include("Nation").SingleOrDefault(c => c.Id == id);
+            return _dbContext.Cities.Include(c => c.Nation).SingleOrDefault(c => c.Id == id);
         }
 
         public City Update(City city)

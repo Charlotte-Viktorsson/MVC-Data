@@ -33,11 +33,15 @@ namespace MVC_Data
             services.AddScoped<IPeopleService, PeopleService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped<IPersonLanguageService, PersonLanguageService>();
 
             //services.AddSingleton<IPeopleRepo, InMemoryPeopleRepo>(); //singleton was good replacing static list
             services.AddScoped<ICityRepo, DatabaseCityRepo>();
             services.AddScoped<ICountryRepo, DatabaseCountryRepo>();
             services.AddScoped<IPeopleRepo, DatabasePeopleRepo>();
+            services.AddScoped<ILanguageRepo, DatabaseLanguageRepo>();
+            services.AddScoped<IPersonLanguageRepo, DatabasePersonLanguageRepo>();
 
             //services.AddControllersWithViews(); //if models are not needed
             services.AddMvc().AddRazorRuntimeCompilation();

@@ -12,17 +12,21 @@ namespace MVC_Data.Models.Service
     public class PeopleService : IPeopleService
     {
         private IPeopleRepo _memory;
+        private readonly ILanguageRepo _languageRepo;
+        private readonly IPersonLanguageRepo _personLanguageRepo;
 
-        public PeopleService(IPeopleRepo peopleRepo)
+        public PeopleService(IPeopleRepo peopleRepo, ILanguageRepo languageRepo, IPersonLanguageRepo personLanguageRepo)
         {
             _memory = peopleRepo;
+            _languageRepo = languageRepo;
+            _personLanguageRepo = personLanguageRepo;
         }
 
         public Person Add(CreatePersonViewModel createPerson)
         {
-            if (createPerson.CityId == -1) //no city
+            if (createPerson.CityId == 0) //no city
             {
-                createPerson.CityId = 0;
+                createPerson.CityId = null;
             }
             Person createdPerson = _memory.Create(createPerson);
             return createdPerson;
@@ -100,7 +104,7 @@ namespace MVC_Data.Models.Service
             }
         }
 
-        //public List<Person> FindByCity(string cityName)
+
         public List<Person> FindByCity(int cityId)
         {
 
@@ -136,6 +140,21 @@ namespace MVC_Data.Models.Service
                 removeResult = false;
             }
             return removeResult;
+        }
+
+        public List<Language> GetNotSpokenLanguages(int id)
+        {
+            List<Language> allLanguages = _languageRepo.Read();
+            List<Language> notSpoken = new List<Language>();
+            Person person = FindBy(id);
+            foreach (var language in allLanguages)
+            {
+                if (_personLanguageRepo.Read(id, language.Id) == null)
+                {
+                    notSpoken.Add(language);
+                }
+            }
+            return notSpoken;
         }
 
         //public PeopleViewModel Sort(string sortOrder, string orderBy)

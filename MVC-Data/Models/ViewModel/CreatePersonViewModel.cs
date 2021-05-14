@@ -25,10 +25,18 @@ namespace MVC_Data.Models.ViewModel
 
         //public string City { get; set; }
 
-        [Display(Name = "City (optional)")]
-        public int CityId { get; set; }
+        [Display(Name = "City")]
+        public int? CityId { get; set; }
 
         public List<City> Cities { get; set; }
+
+        //public List<Language> Languages { get; set; }
+
+        public CreatePersonViewModel()
+        {
+            Cities = new List<City>();
+            //Languages = new List<Language>();
+        }
 
     }
 }

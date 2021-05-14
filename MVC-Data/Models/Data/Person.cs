@@ -12,7 +12,6 @@ namespace MVC_Data.Models.Data
         [Key]
         public int Id { get; set; }
 
-
         [Required]
         [MaxLength(100)]
         public string FirstName { get; set; }
@@ -28,8 +27,10 @@ namespace MVC_Data.Models.Data
         //[Required]
         //public string City { get; set; }
         [ForeignKey("InCity")]
-        public int InCityId { get; set; }
+        public int? InCityId { get; set; }
 
         public City InCity { get; set; }
+
+        public List<PersonLanguage> PersonLanguages { get; set; }
     }
 }

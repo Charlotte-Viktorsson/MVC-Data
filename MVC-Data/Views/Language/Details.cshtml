@@ -1,0 +1,32 @@
+﻿@model EditLanguageViewModel
+@{
+    ViewData["Title"] = "Language details";
+}
+
+<h1>Language details</h1>
+
+<div class="row">
+    <h2>@Model.CreateVM.Name</h2>
+</div>
+<div class="row">
+    <p>Language Id @Model.Id</p>
+</div>
+@if (Model.CreateVM != null && Model.Speakers != null && Model.Speakers.Count != 0)
+{
+    <div class="row">
+        <h3>Persons speaking the language</h3>
+    </div>
+    @foreach (var person in Model.Speakers)
+    {
+        <div class="row">
+            <p>@person.FirstName @person.LastName</p>
+        </div>
+    }
+}
+else
+{
+    <div class="row">No registered persons speaking the language.</div>
+}
+<a asp-action="Index" class="btn btn-info">Back to Language Index</a>
+
+

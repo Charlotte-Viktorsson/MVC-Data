@@ -25,6 +25,7 @@ namespace MVC_Data.Models.Service
         public Person Edit(int id, EditPersonViewModel person);
 
         public bool Remove(int id);
+        List<Language> GetNotSpokenLanguages(int id);
 
         //public PeopleViewModel Sort(string sortOrder, string orderBy);
     }

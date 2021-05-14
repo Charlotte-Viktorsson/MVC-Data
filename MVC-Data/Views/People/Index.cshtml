@@ -6,8 +6,7 @@
 
 <h1>People Index</h1>
 
-@if (Model.createPersonViewModel.Cities != null && Model.createPersonViewModel.Cities.Count > 0)
-{
+
     <h2>Create person</h2>
     <form asp-action="Create" asp-controller="People" method="post">
         <div class="row">
@@ -24,14 +23,18 @@
         </div>
 
         <div class="row">
-            <label asp-for="createPersonViewModel.CityId"></label>
-            <select class="form-select" asp-for="createPersonViewModel.CityId">
-                @foreach (var item in Model.createPersonViewModel.Cities)
+            <div class="col-4">
+                <label asp-for="createPersonViewModel.CityId"></label>
+                <select class="form-select" asp-for="createPersonViewModel.CityId">
+                    <option value="">No city</option>
+                    @foreach (var item in Model.createPersonViewModel.Cities)
                 {
                     <option value="@item.Id">@item.Name</option>
                 }
-            </select>
-            <span asp-validation-for="createPersonViewModel.CityId"></span>
+                </select>
+                <span asp-validation-for="createPersonViewModel.CityId"></span>
+
+            </div>
             @*<div class="col-4">
                     <label asp-for="createPersonViewModel.CityId"></label>
                     <input asp-for="createPersonViewModel.CityId" />
@@ -80,11 +83,6 @@
         }
     }
 
-}
-else
-{
-    <p>First create Countries, then Cities and then People.</p>
-}
 
 
 

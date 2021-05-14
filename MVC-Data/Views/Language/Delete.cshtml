@@ -1,0 +1,32 @@
+﻿@model DeleteLanguageViewModel
+@{
+    ViewData["Title"] = "Delete Language";
+}
+<h1>Delete Language</h1>
+@if (Model != null)
+{
+    @if (Model.Speakers == null || Model.Speakers.Count == 0)
+    {
+        <form asp-action="DeleteLanguage" method="post" asp-route-id="@Model.Language.Id">
+            <input value="@Model.Language.Name" />
+            <a asp-action="Index" class="btn btn-info">Cancel</a>
+            <button class="btn btn-danger">Delete language</button>
+        </form>
+    }
+    else
+    {
+        <h2>The following Persons speaks the language, so it can't be removed.</h2>
+        @foreach (Person person in Model.Speakers)
+        {
+            <li>@person.FirstName @person.LastName</li>
+        }
+        <a asp-action="Index" class="btn btn-info">Back to Languages</a>
+    }
+}
+else
+{
+    <p>Can't find Language</p>
+    <a asp-action="Index" class="btn btn-info">Back to Languages</a>
+
+}
+
