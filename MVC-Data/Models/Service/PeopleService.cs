@@ -39,12 +39,6 @@ namespace MVC_Data.Models.Service
             return model;
         }
 
-        /*public Person Edit(int id, Person person)
-        {
-            //why do we need id, it should be included in Person
-            return _memory.Update(person);
-        }*/
-
         public Person Edit(int id, EditPersonViewModel person)
         {
             Person personToUpdate = FindBy(id);
@@ -66,7 +60,7 @@ namespace MVC_Data.Models.Service
         public PeopleViewModel FindBy(PeopleViewModel search)
         {
             string filter = search.SearchFilter;
-            //search = this.All();
+
             PeopleViewModel filteredModel = new PeopleViewModel();
             filteredModel = this.All();
             List<Person> filteredList = new List<Person>();
@@ -104,10 +98,8 @@ namespace MVC_Data.Models.Service
             }
         }
 
-
         public List<Person> FindByCity(int cityId)
         {
-
             PeopleViewModel filteredModel = new PeopleViewModel();
             filteredModel = this.All();
             List<Person> filteredList = new List<Person>();
@@ -122,6 +114,7 @@ namespace MVC_Data.Models.Service
             }
             return filteredList;
         }
+
         public Person FindBy(int id)
         {
             return _memory.Read(id);

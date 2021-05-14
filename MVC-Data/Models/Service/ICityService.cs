@@ -14,6 +14,7 @@ namespace MVC_Data.Models.Service
         public CityViewModel All();
 
         public City FindBy(int id);
+
         public List<City> FindCitiesByNation(int id);
 
         public City Edit(int id, EditCityViewModel city);

@@ -16,5 +16,10 @@ namespace MVC_Data.Models.ViewModel
 
         public string CityName { get; set; }
         //public CreateCityViewModel CreateVM { get; set; }
+
+        public CityDetailsViewModel()
+        {
+            Citizens = new List<Person>();
+        }
     }
 }

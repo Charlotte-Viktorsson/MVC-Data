@@ -12,7 +12,6 @@ namespace MVC_Data.Models.ViewModel
 
         public CreateLanguageViewModel CreateVM { get; set; }
 
-        //? list of Person or PersonLanguage?
         public List<Person> Speakers { get; set; }
 
 
@@ -23,11 +22,12 @@ namespace MVC_Data.Models.ViewModel
             {
                 Name = language.Name,
             };
+            Speakers = new List<Person>();
         }
 
         public EditLanguageViewModel()
         {
-
+            Speakers = new List<Person>();
         }
 
     }

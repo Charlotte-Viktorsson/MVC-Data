@@ -78,16 +78,15 @@ namespace MVC_Data.Controllers
             {
                 EditPersonViewModel editPersonVM = new EditPersonViewModel(id, updPerson);
                 editPersonVM.CreatePerson.Cities = _cityService.All().Cities;
-                editPersonVM.NotSpokenLanguages = _service.GetNotSpokenLanguages(id);
                 return View(editPersonVM);
             }
             return RedirectToAction(nameof(Index));
         }
 
         [HttpPost]
-        public IActionResult Update(EditPersonViewModel person)
+        public IActionResult Update(EditPersonViewModel personVM)
         {
-            Person updPerson = _service.FindBy(person.Id);
+            Person updPerson = _service.FindBy(personVM.Id);
 
             if (updPerson == null)
             {
@@ -96,13 +95,27 @@ namespace MVC_Data.Controllers
 
             if (ModelState.IsValid)
             {
-                _service.Edit(person.Id, person);
+                _service.Edit(personVM.Id, personVM);
 
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(person);
+            return View(personVM);
         }
+
+        [HttpGet]
+        public IActionResult UpdatePersonLanguages(int id)
+        {
+            Person updPerson = _service.FindBy(id);
+            if (updPerson != null)
+            {
+                ManagePersonLanguageViewModel vm = new ManagePersonLanguageViewModel(updPerson);
+                vm.NotSpokenLanguages = _service.GetNotSpokenLanguages(id);
+                return View(vm);
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
 
         [HttpGet]
         public IActionResult AddLanguageToPerson(int pId, int langId)
@@ -119,7 +132,7 @@ namespace MVC_Data.Controllers
             );
 
 
-            return RedirectToAction("Update", new { id = pId });
+            return RedirectToAction("UpdatePersonLanguages", new { id = pId });
         }
 
         [HttpGet]
@@ -134,7 +147,7 @@ namespace MVC_Data.Controllers
 
             _personLanguageService.Remove(pId, langId);
 
-            return RedirectToAction("Update", new { id = pId });
+            return RedirectToAction("UpdatePersonLanguages", new { id = pId });
         }
     }
 }

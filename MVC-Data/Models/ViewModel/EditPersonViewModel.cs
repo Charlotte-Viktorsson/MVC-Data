@@ -10,8 +10,6 @@ namespace MVC_Data.Models.ViewModel
     {
         public int Id { get; set; }
 
-        public List<Language> NotSpokenLanguages { get; set; }
-
         public Person Person { get; set; }
 
         public CreatePersonViewModel CreatePerson { get; set; }
@@ -27,14 +25,10 @@ namespace MVC_Data.Models.ViewModel
                 CityId = person.InCityId,
                 PhoneNr = person.PhoneNr,
             };
-
-            NotSpokenLanguages = new List<Language>();
         }
 
         public EditPersonViewModel()
         {
-
-            NotSpokenLanguages = new List<Language>();
         }
     }
 }

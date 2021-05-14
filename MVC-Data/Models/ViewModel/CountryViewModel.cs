@@ -10,5 +10,9 @@ namespace MVC_Data.Models.ViewModel
     {
         public List<Country> Countries { get; set; }
 
+        public CountryViewModel()
+        {
+            Countries = new List<Country>();
+        }
     }
 }

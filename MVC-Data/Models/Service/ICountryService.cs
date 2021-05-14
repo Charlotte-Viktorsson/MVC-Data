@@ -15,8 +15,6 @@ namespace MVC_Data.Models.Service
 
         public Country FindBy(int id);
 
-        //public Country Edit(int id, Country country);
-
         public Country Edit(int id, EditCountryViewModel country);
 
         public bool Remove(int id);

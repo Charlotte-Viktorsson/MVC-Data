@@ -4,11 +4,11 @@
 {
     <div class="row" id=@("p" + Model.Id)>
         <div class="col-2"><p>@Model.FirstName</p>   </div>
-        <div class="col-3"><p>@Model.LastName</p>    </div>
+        <div class="col-2"><p>@Model.LastName</p>    </div>
         <div class="col-2"><p>@(Model.InCity == null ? "No City" : Model.InCity.Name)</p></div>
         <div class="col-2"><p>@Model.PhoneNr</p>     </div>
 
-        <div class="col-3">
+        <div class="col-4">
             <a asp-action="PartialPersonRow" onclick="AjaxClosePersonDetails(event, @Model.Id)" class="btn btn-primary">Close Details</a>
         </div>
 

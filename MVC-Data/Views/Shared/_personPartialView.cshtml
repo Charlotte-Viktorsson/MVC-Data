@@ -15,7 +15,7 @@
                     <div class="col-2">
                         <h5>First name</h5>
                     </div>
-                    <div class="col-3">
+                    <div class="col-2">
                         <h5>Last name</h5>
                     </div>
                     <div class="col-2">
@@ -26,7 +26,7 @@
                     </div>
                     @if (showDeleteAction || showEditAction || showDetailsAction)
                     {
-                        <div class="col-3">
+                        <div class="col-4">
                             <h5>Action</h5>
                         </div>
                     }
@@ -37,24 +37,26 @@
     }
     <div class="row" id=@("p" + Model.Id)>
         <div class="col-2"><p>@Model.FirstName</p></div>
-        <div class="col-3"><p>@Model.LastName</p> </div>
+        <div class="col-2"><p>@Model.LastName</p> </div>
 
         <div class="col-2"><p>@(Model.InCity == null ? "No City" : Model.InCity.Name)</p></div>
         <div class="col-2"><p>@Model.PhoneNr</p>  </div>
 
-        <div class="col-3">
-            @if (showEditAction)
+        <div class="col-4">
+            @if (showEditAction)@*asp-route-person="@Model" *@
             {
-                <a asp-action="Update" asp-controller="People" asp-route-id="@Model.Id" asp-route-person="@Model" class="btn btn-info">Edit</a>
+                <a asp-action="Update" asp-controller="People" asp-route-id="@Model.Id" class="btn btn-info">Edit</a>
             }
             @if (showDetailsAction)
             {
                 <a asp-action="PartialDetails" onclick="AjaxPersonDetails( event, @Model.Id )" class="btn btn-info">Details</a>
             }
+            <a asp-action="UpdatePersonLanguages" asp-controller="People" asp-route-id="@Model.Id" class="btn btn-info">Languages</a>
             @if (showDeleteAction)
             {
                 <a asp-action="Remove" asp-controller="People" asp-route-id="@Model.Id" class="btn btn-danger">Remove</a>
             }
+
         </div>
 
 

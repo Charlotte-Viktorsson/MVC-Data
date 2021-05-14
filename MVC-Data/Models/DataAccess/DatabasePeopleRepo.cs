@@ -33,7 +33,6 @@ namespace MVC_Data.Models.DataAccess
 
             if (saveResult == 0)//no changes in the database
             {
-                //throw new Exception("unable to create Person in database.");
                 return null;
             }
 

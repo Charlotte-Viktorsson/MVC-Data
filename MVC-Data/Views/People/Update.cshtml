@@ -39,42 +39,45 @@
     <button class="btn btn-primary">Update</button>
 </form>
 
-@*@if (Model.Person.PersonLanguages != null && Model.Person.PersonLanguages.Count != 0
-     && Model.NotSpokenLanguages.Count != 0)
-    {
+@*<hr />
 
+    @if (Model.Person.PersonLanguages != null || Model.Person.PersonLanguages.Count != 0
+      && Model.NotSpokenLanguages.Count != 0)
+    {
+        <h2>Update languages</h2>
+        <div class="row">
+            <div class="col-4">
+                <h4>Can speak</h4>
+            </div>
+            <div class="col-4">
+                <h4>Don't speak</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <ul>
+                    @if (Model.Person.PersonLanguages != null)
+                    {
+                        @foreach (var item in Model.Person.PersonLanguages)
+                        {
+                            <li>
+                                @item.Language.Name  @Html.ActionLink("Remove", "RemoveLanguageFromPerson", "People", new { pId = Model.Id, langId = item.LanguageId })
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="col-4">
+                <ul>
+                    @foreach (var item in Model.NotSpokenLanguages)
+                    {
+                        <li>
+                            @item.Name @Html.ActionLink("Add", "AddLanguageToPerson", "People", new { pId = Model.Id, langId = item.Id })
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
     }*@
-<h2>Update languages</h2>
-<div class="row">
-    <div class="col-4">
-        <h4>Can speak</h4>
-    </div>
-    <div class="col-4">
-        <h4>Don't speak</h4>
-    </div>
-</div>
-<div class="row">
-    <div class="col-4">
-        <ul>
-            @if (Model.Person.PersonLanguages != null)
-            {
-                @foreach (var item in Model.Person.PersonLanguages)
-                {
-                    <li>
-                        @item.Language.Name  @Html.ActionLink("Remove", "RemoveLanguageFromPerson", "People", new { pId = Model.Id, langId = item.LanguageId })
-                    </li>
-                }
-            }
-        </ul>
-    </div>
-    <div class="col-4">
-        <ul>
-            @foreach (var item in Model.NotSpokenLanguages)
-            {
-                <li>
-                    @item.Name @Html.ActionLink("Add", "AddLanguageToPerson", "People", new { pId = Model.Id, langId = item.Id })
-                </li>
-            }
-        </ul>
-    </div>
-</div>
+
+

@@ -12,5 +12,9 @@ namespace MVC_Data.Models.ViewModel
 
         public List<Person> Speakers { get; set; }
 
+        public DeleteLanguageViewModel()
+        {
+            Speakers = new List<Person>();
+        }
     }
 }

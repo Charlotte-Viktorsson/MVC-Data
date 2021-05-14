@@ -26,12 +26,12 @@ namespace MVC_Data.Models.Service
             city.Nation = _countryRepo.Read(createCity.NationId);
             city = _cityRepo.Create(city);
 
-            //update Country with city
-            Country countryToUpdate = _countryRepo.Read(city.Nation.Id);
-            if (countryToUpdate != null)
-            {
-                _countryRepo.Read(createCity.NationId).Cities.Add(city);
-            }
+            //update Country with city  --should not be needed
+            //Country countryToUpdate = _countryRepo.Read(city.Nation.Id);
+            //if (countryToUpdate != null)
+            //{
+            //    _countryRepo.Read(createCity.NationId).Cities.Add(city);
+            //}
             return city;
         }
 
@@ -61,7 +61,6 @@ namespace MVC_Data.Models.Service
             }
 
             return citiesList;
-
         }
 
         public City Edit(int id, EditCityViewModel editCity)

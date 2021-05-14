@@ -10,5 +10,10 @@ namespace MVC_Data.Models.ViewModel
     {
         public List<City> Cities { get; set; }
 
+        public CityViewModel()
+        {
+            Cities = new List<City>();
+        }
+
     }
 }

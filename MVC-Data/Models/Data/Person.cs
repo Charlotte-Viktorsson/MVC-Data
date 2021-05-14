@@ -25,7 +25,7 @@ namespace MVC_Data.Models.Data
 
 
         //[Required]
-        //public string City { get; set; }
+
         [ForeignKey("InCity")]
         public int? InCityId { get; set; }
 

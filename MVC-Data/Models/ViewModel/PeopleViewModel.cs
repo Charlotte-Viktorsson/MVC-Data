@@ -23,9 +23,7 @@ namespace MVC_Data.Models.ViewModel
         [Display(Name = "Case-sensitive")]
         public bool CaseSensitive { get; set; }
 
-        //[Display(Name = "Person Id")]
-        //public int HandleId { get; set; }
-
         public CreatePersonViewModel createPersonViewModel { get; set; }
+
     }
 }

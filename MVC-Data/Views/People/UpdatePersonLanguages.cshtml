@@ -1,0 +1,49 @@
+﻿@model ManagePersonLanguageViewModel
+@{
+    ViewData["Title"] = "Update Person Languages";
+}
+
+<h1>Update Languages for Person</h1>
+
+<hr />
+<h2>@Model.Person.FirstName @Model.Person.LastName</h2>
+
+@if (Model.Person.PersonLanguages != null || Model.Person.PersonLanguages.Count != 0
+&& Model.NotSpokenLanguages.Count != 0)
+{
+    <h3>Update languages</h3>
+    <div class="row">
+        <div class="col-4">
+            <h4>Can speak</h4>
+        </div>
+        <div class="col-4">
+            <h4>Don't speak</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <ul>
+                @if (Model.Person.PersonLanguages != null)
+                {
+                    @foreach (var item in Model.Person.PersonLanguages)
+                    {
+                        <li>
+                            @item.Language.Name  @Html.ActionLink("Remove", "RemoveLanguageFromPerson", "People", new { pId = Model.Person.Id, langId = item.LanguageId })
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-4">
+            <ul>
+                @foreach (var item in Model.NotSpokenLanguages)
+                {
+                    <li>
+                        @item.Name @Html.ActionLink("Add", "AddLanguageToPerson", "People", new { pId = Model.Person.Id, langId = item.Id })
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+

@@ -18,9 +18,10 @@
         <p>The following Perons lives in the City, so it can't be removed.</p>
         @foreach (Person person in Model.Citizens)
         {
-            <li>@person.FirstName . @person.LastName</li>
+            <li>@person.FirstName - @person.LastName</li>
         }
         <a asp-action="Index" class="btn btn-info">Back to Cities</a>
+        <a asp-action="Index" asp-controller="People" class="btn btn-info">Go to People</a>
     }
 }
 else

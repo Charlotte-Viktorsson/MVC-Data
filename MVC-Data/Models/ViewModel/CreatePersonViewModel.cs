@@ -30,12 +30,9 @@ namespace MVC_Data.Models.ViewModel
 
         public List<City> Cities { get; set; }
 
-        //public List<Language> Languages { get; set; }
-
         public CreatePersonViewModel()
         {
             Cities = new List<City>();
-            //Languages = new List<Language>();
         }
 
     }

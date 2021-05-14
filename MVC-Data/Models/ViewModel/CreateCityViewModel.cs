@@ -22,5 +22,10 @@ namespace MVC_Data.Models.ViewModel
 
         public List<Country> Countries { get; set; }
 
+        public CreateCityViewModel()
+        {
+            Countries = new List<Country>();
+        }
+
     }
 }

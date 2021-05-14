@@ -12,5 +12,9 @@ namespace MVC_Data.Models.ViewModel
 
         public CreateCityViewModel CreateVM { get; set; }
 
+        public EditCityViewModel()
+        {
+
+        }
     }
 }
