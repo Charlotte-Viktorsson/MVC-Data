@@ -111,6 +111,7 @@ namespace MVC_Data.Controllers
             {
                 ManagePersonLanguageViewModel vm = new ManagePersonLanguageViewModel(updPerson);
                 vm.NotSpokenLanguages = _service.GetNotSpokenLanguages(id);
+                vm.AllLanguages = _languageService.All();
                 return View(vm);
             }
             return RedirectToAction(nameof(Index));
