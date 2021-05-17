@@ -4,6 +4,8 @@
     var showEditAction = (bool)ViewData["ShowPersonEditButton"];
     var showDetailsAction = (bool)ViewData["ShowPersonDetailsButton"];
     var showHeader = (bool)ViewData["ShowHeader"];
+
+    var showPersonLanguage = (bool)ViewData["ShowPersonLanguageButton"];
 }
 @if (Model != null)
 {
@@ -51,7 +53,10 @@
             {
                 <a asp-action="PartialDetails" onclick="AjaxPersonDetails( event, @Model.Id )" class="btn btn-info">Details</a>
             }
-            <a asp-action="UpdatePersonLanguages" asp-controller="People" asp-route-id="@Model.Id" class="btn btn-info">Languages</a>
+            @if (showPersonLanguage)
+            {
+                <a asp-action="UpdatePersonLanguages" asp-controller="People" asp-route-id="@Model.Id" class="btn btn-info">Languages</a>
+            }
             @if (showDeleteAction)
             {
                 <a asp-action="Remove" asp-controller="People" asp-route-id="@Model.Id" class="btn btn-danger">Remove</a>

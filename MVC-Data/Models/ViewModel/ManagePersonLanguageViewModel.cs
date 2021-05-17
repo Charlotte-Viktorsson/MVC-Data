@@ -11,17 +11,19 @@ namespace MVC_Data.Models.ViewModel
         public Person Person { get; set; }
 
         public List<Language> NotSpokenLanguages { get; set; }
-
+        public List<Language> AllLanguages { get; set; }
 
         public ManagePersonLanguageViewModel(Person speaker)
         {
             Person = speaker;
             NotSpokenLanguages = new List<Language>();
+            AllLanguages = new List<Language>();
         }
 
         public ManagePersonLanguageViewModel()
         {
             NotSpokenLanguages = new List<Language>();
+            AllLanguages = new List<Language>();
         }
     }
 }

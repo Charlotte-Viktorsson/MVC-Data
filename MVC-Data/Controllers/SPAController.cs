@@ -28,6 +28,7 @@ namespace MVC_Data.Controllers
             ViewData["ShowPersonDeleteButton"] = true;
             ViewData["ShowPersonEditButton"] = false;
             ViewData["ShowPersonDetailsButton"] = true;
+            ViewData["ShowPersonLanguageButton"] = true;
             return PartialView("_peoplePartialView", _service.All().Persons);
         }
 
@@ -39,6 +40,7 @@ namespace MVC_Data.Controllers
             ViewData["ShowPersonDeleteButton"] = true;
             ViewData["ShowPersonEditButton"] = false;
             ViewData["ShowPersonDetailsButton"] = true;
+            ViewData["ShowPersonLanguageButton"] = true;
             ViewData["ShowHeader"] = true;
             return PartialView("_personPartialView", foundPerson);
         }
@@ -74,6 +76,7 @@ namespace MVC_Data.Controllers
             ViewData["ShowPersonDeleteButton"] = true;
             ViewData["ShowPersonEditButton"] = false;
             ViewData["ShowPersonDetailsButton"] = true;
+            ViewData["ShowPersonLanguageButton"] = true;
             ViewData["ShowHeader"] = false;
             return PartialView("_personPartialView", foundPerson);
         }

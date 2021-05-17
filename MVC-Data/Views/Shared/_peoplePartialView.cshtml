@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<Person>
+@{
     var showActions = (bool)ViewData["ShowPersonDeleteButton"];
     ViewData["ShowHeader"] = false;
 
@@ -10,8 +11,12 @@
     {
         ViewData["ShowPersonDetailsButton"] = false;
     }
+    if (ViewData["ShowPersonLanguageButton"] == null)
+    {
+        ViewData["ShowPersonLanguageButton"] = true;
+    }
 }
-@model List<Person>
+
 
 @if (Model != null && Model.Count > 0)
 {

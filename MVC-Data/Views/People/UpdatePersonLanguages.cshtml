@@ -6,12 +6,11 @@
 <h1>Update Languages for Person</h1>
 
 <hr />
-<h2>@Model.Person.FirstName @Model.Person.LastName</h2>
+<h3>@Model.Person.FirstName @Model.Person.LastName</h3>
 
-@if (Model.Person.PersonLanguages != null || Model.Person.PersonLanguages.Count != 0
-&& Model.NotSpokenLanguages.Count != 0)
+@if (Model.AllLanguages.Count > 0)
 {
-    <h3>Update languages</h3>
+    <h5>Update persons languages</h5>
     <div class="row">
         <div class="col-4">
             <h4>Can speak</h4>
@@ -45,5 +44,14 @@
             </ul>
         </div>
     </div>
+    <a asp-controller="People" asp-action="Index" class="btn btn-info">Back to people</a>
+}
+else
+{
+    <p>No languages created yet! Create languages before setting who can speak it.</p>
+    <a asp-controller="Language" asp-action="Create" class="btn btn-info">Create language</a>
+    <a asp-controller="People" asp-action="Index" class="btn btn-info">Back to people</a>
+
+
 }
 

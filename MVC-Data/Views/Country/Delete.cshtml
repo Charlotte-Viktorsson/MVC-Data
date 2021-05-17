@@ -16,10 +16,12 @@
     else
     {
         <h2>The following Cities belongs to the Country, so it can't be removed.</h2>
-        @foreach (City city in Model.Cities)
-        {
-            <li>@city.Name</li>
-        }
+        <ul>
+            @foreach (City city in Model.Cities)
+            {
+                <li>@city.Name</li>
+            }
+        </ul>
         <a asp-action="Index" class="btn btn-info">Back to Countries</a>
         <a asp-action="Index" asp-controller="City" class="btn btn-info">Go to Cities</a>
     }

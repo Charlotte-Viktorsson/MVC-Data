@@ -6,39 +6,43 @@
     ViewData["ShowPersonDeleteButton"] = false;
     ViewData["ShowPersonEditButton"] = false;
     ViewData["ShowPersonDetailsButton"] = false;
+    ViewData["ShowPersonLanguageButton"] = false;
     ViewData["ShowHeader"] = false;
 }
 
 <h1>City details</h1>
+<div class="container">
+    <div class="row">
+        <h2>@Model.CityName</h2>
+    </div>
+    <div class="row">
+        <p>City Id @Model.Id</p>
+    </div>
+    @if (Model.NationName != null)
+    {
+        <div class="row">
+            <p>Country @Model.NationName</p>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <p>Country is not registered.</p>
+        </div>
+    }
+    @if (Model.Citizens != null && Model.Citizens.Count != 0)
+    {
+        <div class="row">
+            <h3>Citizens</h3>
+        </div>
+        <partial name="../Shared/_peoplePartialView" model="Model.Citizens" view-data="ViewData" />
 
-<div class="row">
-    <h2>@Model.CityName</h2>
+    }
+    else
+    {
+        <div class="row">
+            <p>No registered persons in the city.</p>
+        </div>
+    }
 </div>
-<div class="row">
-    <p>City Id @Model.Id</p>
-</div>
-@if (Model.NationName != null)
-{
-    <div class="row">
-        <p>Country @Model.NationName</p>
-    </div>
-}
-else
-{
-    <div class="row">
-        <p>Country is not registered.</p>
-    </div>
-}
-@if (Model.Citizens != null && Model.Citizens.Count != 0)
-{
-    <div class="row">
-        <h3>Citizens</h3>
-    </div>
-    <partial name="../Shared/_peoplePartialView" model="Model.Citizens" view-data="ViewData" />
-
-}
-else
-{
-    <div class="row">No registered persons in the city.</div>
-}
 <a asp-action="Index" class="btn btn-info">Back to Cities</a>

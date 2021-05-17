@@ -23,17 +23,19 @@
         </select>
         <span asp-validation-for="NationId"></span>
         <div class="form-group">
+            <a asp-action="Index" class="btn btn-info">Back to City List</a>
             <input type="submit" value="Create" class="btn btn-primary" />
         </div>
     </form>
 }
 else
 {
-    <p>Create one or more countries before creating a city!</p>
-    <a asp-action="Index" asp-controller="Country" class="btn btn-info">Country overview</a>
-    <a asp-action="Create" asp-controller="Country" class="btn btn-info">Create Country</a>
+    <div class="row">
+        <p>Create one or more countries before creating a city!</p>
+        <a asp-action="Index" class="btn btn-info">Back to City List</a>
+        <a asp-action="Index" asp-controller="Country" class="btn btn-info">Country overview</a>
+        <a asp-action="Create" asp-controller="Country" class="btn btn-primary">Create Country</a>
+    </div>
 }
-<div>
-    <a asp-action="Index" class="btn btn-info">Back to City List</a>
-</div>
+
 

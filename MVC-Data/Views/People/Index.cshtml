@@ -7,81 +7,83 @@
 <h1>People Index</h1>
 
 
-    <h2>Create person</h2>
-    <form asp-action="Create" asp-controller="People" method="post">
-        <div class="row">
-            <div class="col-4">
-                <label asp-for="createPersonViewModel.FirstName"></label>
-                <input asp-for="createPersonViewModel.FirstName" />
-                <span asp-validation-for="createPersonViewModel.FirstName"></span>
-            </div>
-            <div class="col-4">
-                <label asp-for="createPersonViewModel.LastName"></label>
-                <input asp-for="createPersonViewModel.LastName" />
-                <span asp-validation-for="createPersonViewModel.LastName"></span>
-            </div>
+<h2>Create person</h2>
+<form asp-action="Create" asp-controller="People" method="post">
+    <div class="row">
+        <div class="col-4">
+            <label asp-for="createPersonViewModel.FirstName"></label>
+            <input asp-for="createPersonViewModel.FirstName" />
+            <span asp-validation-for="createPersonViewModel.FirstName"></span>
         </div>
+        <div class="col-4">
+            <label asp-for="createPersonViewModel.LastName"></label>
+            <input asp-for="createPersonViewModel.LastName" />
+            <span asp-validation-for="createPersonViewModel.LastName"></span>
+        </div>
+    </div>
 
-        <div class="row">
-            <div class="col-4">
-                <label asp-for="createPersonViewModel.CityId"></label>
-                <select class="form-select" asp-for="createPersonViewModel.CityId">
-                    <option value="">No city</option>
-                    @foreach (var item in Model.createPersonViewModel.Cities)
+    <div class="row">
+        <div class="col-4">
+            <label asp-for="createPersonViewModel.CityId"></label>
+            <select class="form-select" asp-for="createPersonViewModel.CityId">
+                <option value="">No city</option>
+                @foreach (var item in Model.createPersonViewModel.Cities)
                 {
                     <option value="@item.Id">@item.Name</option>
                 }
-                </select>
+            </select>
+            <span asp-validation-for="createPersonViewModel.CityId"></span>
+
+        </div>
+        @*<div class="col-4">
+                <label asp-for="createPersonViewModel.CityId"></label>
+                <input asp-for="createPersonViewModel.CityId" />
                 <span asp-validation-for="createPersonViewModel.CityId"></span>
-
-            </div>
-            @*<div class="col-4">
-                    <label asp-for="createPersonViewModel.CityId"></label>
-                    <input asp-for="createPersonViewModel.CityId" />
-                    <span asp-validation-for="createPersonViewModel.CityId"></span>
-                </div>*@
-            <div class="col-4">
-                <label asp-for="createPersonViewModel.PhoneNr"></label>
-                <input type="tel" asp-for="createPersonViewModel.PhoneNr" />
-                <span asp-validation-for="createPersonViewModel.PhoneNr"></span>
-            </div>
+            </div>*@
+        <div class="col-4">
+            <label asp-for="createPersonViewModel.PhoneNr"></label>
+            <input type="tel" asp-for="createPersonViewModel.PhoneNr" />
+            <span asp-validation-for="createPersonViewModel.PhoneNr"></span>
         </div>
-        <button type="reset" class="btn btn-secondary">Reset</button>
-        <button class="btn btn-primary">Create</button>
-    </form>
+    </div>
+    <button type="reset" class="btn btn-secondary">Reset</button>
+    <button class="btn btn-primary">Create</button>
+</form>
 
 
-    <h2>Search</h2>
-    <form asp-action="Index" asp-controller="People" method="post">
-        <div class="row">
-            <div class="col-6 form-inline">
-                <label asp-for="@Model.SearchFilter" class="mr-sm-2"></label>
-                <input type="text" asp-for="@Model.SearchFilter" />
-            </div>
-            <div class="form-check col-3 mt-sm-3">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="CaseSensitive" /> @Html.DisplayNameFor(model => model.CaseSensitive)
-                </label>
-            </div>
-            <div class="form-group col-2">
-                <button class="btn btn-primary">Search</button>
-            </div>
+<h2>Search</h2>
+<form asp-action="Index" asp-controller="People" method="post">
+    <div class="row">
+        <div class="col-6 form-inline">
+            <label asp-for="@Model.SearchFilter" class="mr-sm-2"></label>
+            <input type="text" asp-for="@Model.SearchFilter" />
         </div>
-    </form>
+        <div class="form-check col-3 mt-sm-3">
+            <label class="form-check-label">
+                <input class="form-check-input" asp-for="CaseSensitive" /> @Html.DisplayNameFor(model => model.CaseSensitive)
+            </label>
+        </div>
+        <div class="form-group col-2">
+            <button class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
 
-    <h2>List of people</h2>
-    @if (Model != null && Model.Persons != null)
+<h2>List of people</h2>
+@if (Model != null && Model.Persons != null)
+{
+    @if (Model.Persons.Count != 0)
     {
-        @if (Model.Persons.Count != 0)
-        {
-            <partial name="../Shared/_peoplePartialView" model="Model.Persons" view-data="ViewData" />
+        <partial name="../Shared/_peoplePartialView" model="Model.Persons" view-data="ViewData" />
 
-        }
-        else
-        {
-            <div><p>No people created or found by the filter. Create new persons or do a new search.</p></div>
-        }
     }
+    else
+    {
+
+        <p>No people created or found by the filter. Create new persons or do a new search.</p>
+
+    }
+}
 
 
 

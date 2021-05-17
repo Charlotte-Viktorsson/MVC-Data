@@ -15,18 +15,23 @@
     }
     else
     {
-        <h2>The following Persons speaks the language, so it can't be removed.</h2>
-        @foreach (Person person in Model.Speakers)
-        {
-            <li>@person.FirstName @person.LastName</li>
-        }
-        <a asp-action="Index" class="btn btn-info">Back to Languages</a>
+        <div>
+            <p>The following Persons speaks the language, so it can't be removed.</p>
+            <ul>
+                @foreach (Person person in Model.Speakers)
+                {
+                    <li>@person.FirstName @person.LastName</li>
+                }
+            </ul>
+            <a asp-action="Index" class="btn btn-info">Back to Languages</a>
+        </div>
     }
 }
 else
 {
-    <p>Can't find Language</p>
-    <a asp-action="Index" class="btn btn-info">Back to Languages</a>
-
+    <div class="row">
+        <p>Can't find Language</p>
+        <a asp-action="Index" class="btn btn-info">Back to Languages</a>
+    </div>
 }
 
