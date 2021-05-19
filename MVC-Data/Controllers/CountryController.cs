@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MVC_Data.Models.Data;
 using MVC_Data.Models.Service;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace MVC_Data.Controllers
 {
+    [Authorize(Roles = "Admin, SuperAdmin")]
     public class CountryController : Controller
     {
         private readonly ICountryService _countryService;

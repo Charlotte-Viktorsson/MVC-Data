@@ -57,7 +57,8 @@
             {
                 <a asp-action="UpdatePersonLanguages" asp-controller="People" asp-route-id="@Model.Id" class="btn btn-info">Languages</a>
             }
-            @if (showDeleteAction)
+            @if (showDeleteAction && User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("SuperAdmin")))
+
             {
                 <a asp-action="Remove" asp-controller="People" asp-route-id="@Model.Id" class="btn btn-danger">Remove</a>
             }

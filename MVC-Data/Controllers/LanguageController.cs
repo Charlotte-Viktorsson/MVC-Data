@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 using MVC_Data.Models.Service;
 using MVC_Data.Models.ViewModel;
 using MVC_Data.Models.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MVC_Data.Controllers
 {
+    [Authorize(Roles = "Admin, SuperAdmin")]
     public class LanguageController : Controller
     {
         private readonly ILanguageService _languageService;

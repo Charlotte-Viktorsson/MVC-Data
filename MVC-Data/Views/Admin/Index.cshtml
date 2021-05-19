@@ -1,0 +1,74 @@
+﻿@model UserViewModel
+@{
+    ViewData["Title"] = "User Index";
+}
+
+<h1>User Index</h1>
+
+
+<h2>List of Users</h2>
+@if (Model != null && Model.Users != null)
+{
+    @if (Model.Users.Count != 0)
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-1">
+                        <h5>Username</h5>
+                    </div>
+                    <div class="col-2">
+                        <h5>First name</h5>
+                    </div>
+                    <div class="col-2">
+                        <h5>Last name</h5>
+                    </div>
+                    <div class="col-2">
+                        <h5>Email</h5>
+                    </div>
+                    <div class="col-1">
+                        <h5>Birthdate</h5>
+                    </div>
+                    <div class="col-2">
+                        <h5>Actions</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @foreach (ApplicationUser listedUser in Model.Users)
+        {
+            <div class="row">
+                <div class="col-1"><p>@listedUser.UserName</p></div>
+                <div class="col-2"><p>@listedUser.FirstName</p></div>
+                <div class="col-2"><p>@listedUser.LastName</p></div>
+                <div class="col-2"><p>@listedUser.Email</p></div>
+                <div class="col-1"><p>@listedUser.BirthDate.Date</p></div>
+
+                <div class="col-2">
+                    @if (listedUser.UserName != "SuperAdmin" && listedUser.UserName != "Admin") //not allowed to update
+                    {
+                        if (User.IsInRole("SuperAdmin") || User.IsInRole("Admin"))
+                        {
+                            <a asp-action="EditUser" asp-controller="Admin" asp-route-id="@listedUser.Id" class="btn btn-info">Edit</a>
+                            <a asp-action="DeleteUser" asp-controller="Admin" asp-route-id="@listedUser.Id" class="btn btn-danger">Remove</a>
+                        }
+
+                    }
+                    else if (listedUser.UserName == "Admin" && User.IsInRole("SuperAdmin")) //superadmin can handle admin
+                    {
+                        <a asp-action="EditUser" asp-controller="Admin" asp-route-id="@listedUser.Id" class="btn btn-info">Edit</a>
+                        <a asp-action="DeleteUser" asp-controller="Admin" asp-route-id="@listedUser.Id" class="btn btn-danger">Remove</a>
+                    }
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="container">
+            <p>No users created</p>
+        </div>
+
+    }
+}
+

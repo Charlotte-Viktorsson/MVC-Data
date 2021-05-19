@@ -1,0 +1,53 @@
+﻿@model ManageUserRolesViewModel
+@{
+    ViewData["Title"] = "Manage User's Roles";
+   
+}
+
+<div class="container">
+    <h1>Update Roles for User</h1>
+
+    <hr />
+
+    <h3>@Model.UserName</h3>
+
+        <div class="row">
+            <div class="col-4">
+                <h4>Have role</h4>
+            </div>
+            <div class="col-4">
+                <h4>Don't have role</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+                <ul>
+                    @if (Model.Roles != null)
+                    {
+                        @foreach (var role in Model.Roles)
+                        {
+                            <li>
+                                @*@role  @Html.ActionLink("Remove", "RemoveRoleFromUser", "Admin", new { pId = Model.UserId, rId = role })*@
+                                @role  <a asp-action="RemoveRoleFromUser" asp-route-rName="@role" asp-route-uName="@Model.UserName">Remove</a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="col-4">
+                <ul>
+                    @foreach (var item in Model.NotAssignedRoles)
+                    {
+                        <li>
+                            @*@item.Name @Html.ActionLink("Add", "AddRoleToUser", "Admin", new { uName= Model.UserName, rName = @item.Name })*@
+                            @item <a asp-action="AddRoleToUser" asp-route-rName="@item" asp-route-uName="@Model.UserName">Add</a> 
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <a asp-controller="Admin" asp-action="Index" class="btn btn-info">Back to user administration</a>
+
+
+</div>
+

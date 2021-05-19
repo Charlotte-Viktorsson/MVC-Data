@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,6 +30,10 @@ namespace MVC_Data
         {
             services.AddDbContext<PeopleDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<PeopleDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddScoped<IPeopleService, PeopleService>();
             services.AddScoped<ICityService, CityService>();
@@ -64,6 +69,7 @@ namespace MVC_Data
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -71,7 +77,7 @@ namespace MVC_Data
 
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=People}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

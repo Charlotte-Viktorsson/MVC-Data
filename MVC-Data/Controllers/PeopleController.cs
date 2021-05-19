@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MVC_Data.Models.Data;
 using MVC_Data.Models.Service;
 using MVC_Data.Models.ViewModel;
@@ -6,6 +7,7 @@ using MVC_Data.Models.ViewModel;
 
 namespace MVC_Data.Controllers
 {
+    [Authorize]
     public class PeopleController : Controller
     {
         IPeopleService _service;
@@ -42,6 +44,7 @@ namespace MVC_Data.Controllers
             return View(searchViewModel);
         }
 
+        [Authorize(Roles = "Admin, SuperAdmin")]
         [HttpGet]
         public IActionResult Remove(int id)
         {

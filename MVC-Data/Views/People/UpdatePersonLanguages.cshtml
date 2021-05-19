@@ -48,10 +48,20 @@
 }
 else
 {
-    <p>No languages created yet! Create languages before setting who can speak it.</p>
-    <a asp-controller="Language" asp-action="Create" class="btn btn-info">Create language</a>
-    <a asp-controller="People" asp-action="Index" class="btn btn-info">Back to people</a>
-
-
+    @if (User.IsInRole("Admin") || User.IsInRole("SuperAdmin"))
+    {
+        <div class="container">
+            <p>No languages created yet! Create languages before setting who can speak it.</p>
+            <a asp-controller="Language" asp-action="Create" class="btn btn-info">Create language</a>
+            <a asp-controller="People" asp-action="Index" class="btn btn-info">Back to people</a>
+        </div>
+    }
+    else
+    {
+        <div class="container">
+            <p>No languages defined yet! Ask the administrator of the system to assist with defining languages.</p>
+            <a asp-controller="People" asp-action="Index" class="btn btn-info">Back to people</a>
+        </div>
+    }
 }
 

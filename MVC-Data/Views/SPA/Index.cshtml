@@ -16,10 +16,12 @@
     <div class="col-3">
         <button id="personDetailsBtn" class="btn btn-info">Show person details</button>
     </div>
-    <div class="col-3">
-        <button id="removePersonBtn" class="btn btn-danger">Remove person</button>
-    </div>
-
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        <div class="col-3">
+            <button id="removePersonBtn" class="btn btn-danger">Remove person</button>
+        </div>
+    }
 </div>
 <div class="row">
     <div class="col-12">

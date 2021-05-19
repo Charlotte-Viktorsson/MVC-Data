@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MVC_Data.Models.Data;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MVC_Data.Models.Data
 {
-    public class PeopleDbContext : DbContext
+    //public class PeopleDbContext : DbContext
+    public class PeopleDbContext : IdentityDbContext<ApplicationUser>
     {
 
         public PeopleDbContext(DbContextOptions<PeopleDbContext> options) : base(options)
@@ -16,6 +18,7 @@ namespace MVC_Data.Models.Data
         //Join table configured using Fluent API
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder); //Recommend on the first line inside method.
             modelBuilder.Entity<PersonLanguage>().HasKey(pl =>
             new
             {

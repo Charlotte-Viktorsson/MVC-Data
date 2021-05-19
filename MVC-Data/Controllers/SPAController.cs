@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MVC_Data.Models.Data;
 using MVC_Data.Models.Service;
 using System;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace MVC_Data.Controllers
 {
+    [Authorize]
     public class SPAController : Controller
     {
         private IPeopleService _service;
@@ -46,6 +48,7 @@ namespace MVC_Data.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin, SuperAdmin")]
         public IActionResult RemovePerson(int id)
         {
             Person personToRemove = _service.FindBy(id);
