@@ -47,8 +47,9 @@ namespace MVC_Data.Controllers
             var userRoles = await _userManager.GetRolesAsync(user);
             if (!User.IsInRole("SuperAdmin") && (userRoles.Contains("Admin") || userRoles.Contains("SuperAdmin")))
             {
-                //admins får bara hanteras av SuperAdmin
-                return RedirectToAction(nameof(Index));
+                //admins can only be handled by SuperAdmin
+                ViewBag.ErrorMessage = $"Only SuperAdmin is allowed to handle users with role Admin";
+                return View("NotAuthorized");
             }
             var model = new EditUserViewModel
             {
@@ -71,8 +72,8 @@ namespace MVC_Data.Controllers
 
             if (user == null)
             {
-                ModelState.AddModelError("", "$User with Id = {model.Id} cannot be found");
-                return View(model);
+                ViewBag.ErrorMessage = $"User with Id = {model.Id} cannot be found";
+                return View("NotFound");
             }
             else
             {
@@ -86,7 +87,7 @@ namespace MVC_Data.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(EditUser), new { id = model.Id });
                 }
 
                 foreach (var error in result.Errors)
@@ -112,19 +113,23 @@ namespace MVC_Data.Controllers
                 //not allowed to remove default users Admin or SuperAdmin
                 if (user.UserName == "Admin" || user.UserName == "SuperAdmin")
                 {
-                    return RedirectToAction(nameof(Index));
+                    ViewBag.ErrorMessage = $"The users Admin and SuperAdmin can not be deleted.";
+                    return View("NotAuthorized");
                 }
 
                 //verify it is not an user with admin rights
                 var userRoles = await _userManager.GetRolesAsync(user);
                 if (!User.IsInRole("SuperAdmin") && (userRoles.Contains("Admin") || userRoles.Contains("SuperAdmin")))
                 {
-
+                    //admins can only be handled by SuperAdmin
+                    ViewBag.ErrorMessage = $"Only SuperAdmin is allowed to handle users with role Admin";
+                    return View("NotAuthorized");
                 }
-                //check if user has a role
-                var roles = await _userManager.GetRolesAsync(user);
 
-                var deleteRolesResult = await _userManager.RemoveFromRolesAsync(user, roles);
+                //check if user has a role
+                //var roles = await _userManager.GetRolesAsync(user);
+
+                var deleteRolesResult = await _userManager.RemoveFromRolesAsync(user, userRoles);
 
                 if (deleteRolesResult.Succeeded)
                 {
@@ -151,6 +156,8 @@ namespace MVC_Data.Controllers
                 return View("NotFound");
             }
 
+
+            //find out the available roles
             List<IdentityRole> allRoles = _roleManager.Roles.ToList();
             IList<string> usersRoles = await _userManager.GetRolesAsync(user);
             List<string> notAssignedRoles = new List<string>();
